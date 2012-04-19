@@ -4,7 +4,7 @@ from websocket import create_connection
 import simplejson as json
 from decimal import *
 
-raw = 1
+raw = 0
 
 ws = create_connection("ws://api.blockchain.info:8335/inv")
 ws.send('{"op":"unconfirmed_sub"}')
@@ -14,13 +14,12 @@ while ( 1 ) :
 	if raw :
 		print result
 
-	if 1 :
-		result = json.loads(result)
-		marker = "	*** new transaction ***"
-		if 'out' in result['x'] :
-			for out in result['x']['out'] :
-				print out['addr'] + ' got ' + str( Decimal( out['value'] ) / Decimal(100000000.0)) +marker
-				marker = ''
+	result = json.loads(result)
+	marker = "	*** new transaction ***"
+	if 'out' in result['x'] :
+		for out in result['x']['out'] :
+			print out['addr'] + ' got ' + str( Decimal( out['value'] ) / Decimal(100000000.0)) +marker
+			marker = ''
 		
 print "Done"
 ws.close()
