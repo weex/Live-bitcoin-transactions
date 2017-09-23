@@ -6,7 +6,7 @@ from decimal import *
 
 raw = 0
 
-ws = create_connection("ws://ws.blockchain.info:8335/inv")
+ws = create_connection("ws://ws.blockchain.info/inv")
 ws.send('{"op":"unconfirmed_sub"}')
 while ( 1 ) :
 	result = ws.recv()
